@@ -1,5 +1,7 @@
 package helloJPA;
 
+import helloJPA.entity.Member;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -17,34 +19,35 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
         // 데이터 변경은 트랜잭션 내에서 실행해야함!!
         EntityTransaction tx = em.getTransaction();
+        // entity manager는 데이터 변경시 transaction을 시작해야 한다.
         tx.begin();
 
         try {
             // Member member = em.find(Member.class, 1l);
 
-            // JPQL : 테이블이 아닌 '엔티티' 객체를 대상으로 검색
+            // JPQL : 테이블이 아닌 '엔티티' 객체를 대상으로하는 객체지향 SQL
             List<Member> result = em.createQuery("SELECT m FROM Member m", Member.class)
                     .setFirstResult(4)
                     .setMaxResults(10)
                     .getResultList();
 
             for(Member member : result) {
-                System.out.printf("member.id : %d member.name : %s \n", member.getId(), member.getName());
+                System.out.printf("member.id : %d member.name : %s \n", member.getId(), member.getUsername());
             }
 
             // 영속성 컨텍스트(Persistence Context)
-            // 생명주
-            // 비영속
+            // 영속성 컨텍스트의 생명주기
+            // 1. 비영속
             Member member = new Member();
             member.setId(111l);
-            member.setName("PersistenceContext");
+            member.setUsername("PersistenceContext");
 
             System.out.println("=== Before ===");
-            // 영속 : 영속성 컨텍스트에서 관리
+            // 2. 영속 : 영속성 컨텍스트에서 관리
             // em.persist(member);
-            // 준영속 : 영속성 컨텍스트에서 저장되었다가 분리됨
+            // 3. 준영속 : 영속성 컨텍스트에서 저장되었다가 분리됨
             // em.detach(member);
-            // 삭제
+            // 4. 삭제
             // em.remove(member);
             System.out.println("=== After ===");
 
@@ -58,7 +61,12 @@ public class JpaMain {
             // commit() -> flush -> commit
 
             member = em.find(Member.class, 111l);
-            member.setName("Persistence Context");
+            Member member111 = em.find(Member.class, 111l);
+            System.out.println("동일성 보장 : " + (member == member111));
+            // 동일성보장
+            //  -> 1차 캐시로 반복 가능한 읽기의 트랜잭션 격리수준을 DB가 아닌 애플리케이션에서 제공
+            member.setUsername("Persistence Context");
+            // 변경 감지
             // flush() 할때에 스냅샷을 비교하여 update sql 생성
             /*
             ** 영속성 컨텍스트 장점 **
