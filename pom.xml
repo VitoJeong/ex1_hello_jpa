@@ -6,6 +6,7 @@
 
     <groupId>jpa-basic</groupId>
     <artifactId>ex1-hello-jpa</artifactId>
+    <packaging>pom</packaging>
     <version>1.0.0</version>
     <build>
         <pluginManagement>
@@ -22,6 +23,9 @@
             </plugins>
         </pluginManagement>
     </build>
+    <modules>
+        <module>jpashop</module>
+    </modules>
 
     <dependencies>
 
