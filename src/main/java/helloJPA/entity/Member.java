@@ -8,13 +8,17 @@ import java.util.Date;
 
 @Entity
 @Data
-@SequenceGenerator(name = "member_seq_generator", allocationSize = 1, sequenceName = "member_seq")
+@SequenceGenerator(
+        name = "member_seq_generator",
+        sequenceName = "member_seq",
+        allocationSize = 1)
 public class Member {
 
     @Id // @Id만 사용 : 직접할당
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq") // 자동생성
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq_generator") // 자동생성
     private Long id;
     // IDENTITY 전략은 em.persist() 시점에 즉시 INSERT SQL 실행 하고 DB에서 식별자를 조회
+    // SEQUENCE 전략은 em.persist() 시점에 sequence 값을 가져와 영속
 
     // 컬럼 매핑
     @Column(name = "name")
