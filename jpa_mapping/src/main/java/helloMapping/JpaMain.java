@@ -40,6 +40,10 @@ public class JpaMain {
             // Team newTeam = em.find(Team.class, 100l);
             // member.setTeam(newTeam);
 
+            List<Member> members = findMember.getTeam().getMembers();
+            for(Member m : members) {
+                System.out.println("m = " + m.getUserName());
+            }
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
