@@ -2,10 +2,9 @@ package jpabook.jpashop.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -24,5 +23,7 @@ public class Member {
 
     private String zipCode;
 
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>();
+    // OneToMany를 생성하는것 보다 주인에서 JPQL로 뽑아내는게 더 좋은 설계
 }
-4

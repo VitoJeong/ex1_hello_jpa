@@ -44,6 +44,7 @@ public class JpaMain {
             for(Member m : members) {
                 System.out.println("m = " + m.getUserName());
             }
+            // 최대한 단방향 매핑으로만 설계해라!
             tx.commit();
         } catch (Exception e) {
             tx.rollback();

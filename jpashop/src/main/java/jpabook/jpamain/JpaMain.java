@@ -2,6 +2,7 @@ package jpabook.jpamain;
 
 
 import jpabook.jpashop.domain.Order;
+import jpabook.jpashop.domain.OrderItem;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,9 +19,15 @@ public class JpaMain {
 
         try {
 
-            Order order = em.find(Order.class, 1l);
+            Order order = new Order();
+            em.persist(order);
 
-            order.getMemberId();
+            OrderItem orderItem = new OrderItem();
+            // 주인에 값을 설정!!
+            orderItem.setOrder(order);
+            em.persist(orderItem);
+
+            // order.addOrderItem(new OrderItem());
 
             tx.commit();
         } catch (Exception e) {
