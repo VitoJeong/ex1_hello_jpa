@@ -27,16 +27,16 @@ public class MappingMistake {
             Member member2 = new Member();
             member2.setUserName("Kroos");
 
-            // 가짜 매핑에만 연관관계 설
+            // 가짜 매핑에만 연관관계 설정
             // team.getMembers().add(member);
 
             // 연관관계의 주인에 값 설정
-            member1.setTeam(team);
+            //member1.setTeam(team);
             em.persist(member1);
             em.persist(member2);
 
             team.getMembers().add(member1);
-            member2.changeTeam(team);
+            //member2.changeTeam(team);
 
             //em.flush();
             //em.clear();

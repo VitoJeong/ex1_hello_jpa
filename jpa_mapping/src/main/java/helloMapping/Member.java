@@ -21,13 +21,19 @@ public class Member {
 
     // [member : Many] to [team : One]
     // JoinColumn : 연관관계의 주인(Owner)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "TEAM_ID")
+    //@ManyToOne(fetch = FetchType.LAZY)
+    //@JoinColumn(name = "TEAM_ID")
+    //private Team team;
+
+    // 일대다 양방향 -> 읽기 전용필드 사용
+    // 다대일 양방향 사용!!!
+    @ManyToOne
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
     private Team team;
 
     // 연관관계 편의 메서드
-    public void changeTeam(Team team){
-        this.team = team;
-        team.getMembers().add(this);
-    }
+    //public void changeTeam(Team team){
+    //    this.team = team;
+    //    team.getMembers().add(this);
+    //}
 }
