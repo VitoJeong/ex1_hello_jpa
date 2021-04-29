@@ -2,14 +2,15 @@ package jpabook.jpashop.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
-public class Item {
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn
+public class Item extends BaseEntity{
 
     @Id
     @GeneratedValue
@@ -18,8 +19,10 @@ public class Item {
 
     private String name;
 
-    private Integer price;
+    private int price;
 
-    private Integer stockQuantity;
+    private int stockQuantity;
 
+    @ManyToMany(mappedBy = "items")
+    private List<Category> categories = new ArrayList<>();
 }
