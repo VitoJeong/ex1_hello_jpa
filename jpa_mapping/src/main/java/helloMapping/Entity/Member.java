@@ -1,4 +1,4 @@
-package helloMapping;
+package helloMapping.Entity;
 
 
 import lombok.Data;
@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Member {
+public class Member extends BaseEntity {
 
     @Id @GeneratedValue
     @Column(name = "MEMBER_ID")
@@ -25,10 +25,11 @@ public class Member {
     //@JoinColumn(name = "TEAM_ID")
     //private Team team;
 
-    // 일대다 양방향 -> 읽기 전용필드 사용
     // 다대일 양방향 사용!!!
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    //@JoinColumn(name = "TEAM_ID", insertable = false, updatable = false)
+    // 일대다 양방향 -> 읽기 전용필드 사용 (지연로딩 사용 불가능)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
     private Team team;
 
     // 연관관계 편의 메서드

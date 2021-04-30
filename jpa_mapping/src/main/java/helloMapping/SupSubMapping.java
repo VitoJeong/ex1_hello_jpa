@@ -1,5 +1,8 @@
 package helloMapping;
 
+import helloMapping.Entity.Item;
+import helloMapping.Entity.Movie;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;

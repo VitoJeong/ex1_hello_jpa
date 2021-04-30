@@ -1,4 +1,4 @@
-package helloMapping;
+package helloMapping.Entity;
 
 import lombok.Data;
 
