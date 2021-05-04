@@ -26,6 +26,7 @@
     <modules>
         <module>jpashop</module>
         <module>jpa_mapping</module>
+        <module>valueType</module>
     </modules>
 
     <dependencies>

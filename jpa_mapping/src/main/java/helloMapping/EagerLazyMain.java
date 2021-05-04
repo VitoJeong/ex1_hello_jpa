@@ -47,7 +47,7 @@ public class EagerLazyMain {
             System.out.println("==============");
             */
 
-            List<Member> members = em.createQuery("SELECT m FROM Member m", Member.class)
+            List<Member> members = em.createQuery("SELECT m FROM Member m JOIN FETCH m.team", Member.class)
                     .getResultList();
 
             // EAGER

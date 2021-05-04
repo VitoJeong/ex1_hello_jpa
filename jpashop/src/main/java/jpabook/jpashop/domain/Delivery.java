@@ -4,6 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Data
 public class Delivery extends BaseEntity {
@@ -16,6 +18,6 @@ public class Delivery extends BaseEntity {
     private String zipcode;
     private String status;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery", fetch = LAZY)
     private Order order;
 }

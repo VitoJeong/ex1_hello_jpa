@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="jpashop" />
         <module name="jpa_mapping" />
+        <module name="valueType" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11" />
