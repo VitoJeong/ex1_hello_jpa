@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="jpashop" />
+        <module name="jpa_jpql" />
         <module name="jpa_mapping" />
         <module name="valueType" />
       </profile>
