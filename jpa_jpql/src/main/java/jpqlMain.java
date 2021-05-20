@@ -22,6 +22,7 @@ public class jpqlMain {
 
         try {
 
+            // flush -> commit, query
             List<Member> resultList =
                     em.createQuery("SELECT m FROM Member m WHERE m.userName LIKE '%Hello%'",
                             Member.class)
@@ -37,6 +38,26 @@ public class jpqlMain {
             //쿼리 생성
             CriteriaQuery<Member> cq = query.select(m).where(cb.equal(m.get("userName"), "kim"));
             List<Member> resultListByCriteria = em.createQuery(cq).getResultList();
+
+            // Paging API
+            for(int i = 0; i < 100; i++){
+                Member member = new Member();
+                member.setUserName("member"+i);
+                member.setAge(i);
+                em.persist(member);
+            }
+
+            em.flush();
+            em.clear();
+
+            List<Member> resultList1 = em.createQuery("SELECT m FROM Member m ORDER BY m.age DESC", Member.class)
+                    .setFirstResult(1)
+                    .setMaxResults(10)
+                    .getResultList();
+
+            for (Member member : resultList1) {
+                System.out.println("member = " + member);
+            }
 
             tx.commit();
         } catch (Exception e){
