@@ -1,5 +1,6 @@
 import entity.Member;
 import entity.MemberDTO;
+import entity.MemberType;
 import entity.Team;
 
 import javax.persistence.*;
@@ -22,8 +23,8 @@ public class JoinMain {
             em.persist(team);
 
             Member member = new Member();
-            member.setUserName("member1");
-            member.setAge(12);
+            member.setAge(10);
+            member.setType(MemberType.ADMIN);
 
             member.changeTeam(team);
             em.persist(member);
@@ -31,9 +32,28 @@ public class JoinMain {
             em.flush();
             em.clear();
 
-            String query = "SELECT m FROM Member m, Team t where m.userName = t.name";
+            // 타입표현
+            String query = "SELECT m FROM Member m, Team t " +
+                    "WHERE m.type = entity.MemberType.ADMIN";
             List<Member> result = em.createQuery(query, Member.class).getResultList();
 
+            // 조건식
+            query = "SELECT " +
+                        "CASE " +
+                        "   WHEN m.age <= 10 THEN '학생요금' " +
+                        "   WHEN m.age >= 60 THEN '경로요금' " +
+                        "ELSE '일반요금' " +
+                    "END " +
+                    "FROM Member m";
+            List<String> resultList = em.createQuery(query, String.class).getResultList();
+
+            query = "SELECT COALESCE(m.userName, '이름 없는 회원') " +
+                    "FROM Member m";
+            resultList = em.createQuery(query, String.class).getResultList();
+
+            for (String str : resultList) {
+                System.out.println("str = " + str);
+            }
             tx.commit();
         } catch (Exception e){
             tx.rollback();

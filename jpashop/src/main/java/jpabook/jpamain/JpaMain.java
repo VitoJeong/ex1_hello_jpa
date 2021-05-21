@@ -1,10 +1,7 @@
 package jpabook.jpamain;
 
 
-import jpabook.jpashop.domain.Book;
-import jpabook.jpashop.domain.Member;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.domain.*;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -37,6 +34,8 @@ public class JpaMain {
             book.setAuthor("KYH");
 
             em.persist(book);
+
+            em.createQuery("SELECT i FROM Item i WHERE TYPE(i) = Book ", Item.class).getResultList();
 
             tx.commit();
         } catch (Exception e) {
